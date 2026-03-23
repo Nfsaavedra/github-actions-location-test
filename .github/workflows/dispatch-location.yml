@@ -1,0 +1,50 @@
+name: Dispatch runner location
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dispatch-location
+  cancel-in-progress: false
+
+jobs:
+  location:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Initialize workspace
+        run: |
+          mkdir -p reports
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Runner snapshot
+        run: |
+          echo "GITHUB_REPOSITORY=$GITHUB_REPOSITORY"
+          echo "RUNNER_OS=$RUNNER_OS RUNNER_ARCH=$RUNNER_ARCH"
+          uname -a
+          df -h /
+          node --version 2>/dev/null || true
+
+      - name: Approximate location
+        run: |
+          IP=$(curl -s https://api.ipify.org)
+          echo "IP=$IP"
+          curl -s "https://ipinfo.io/$IP/json" | tee reports/ipinfo.json
+          printf '%s\n' "$IP" > reports/public-ip.txt
+          date -u +%Y-%m-%dT%H:%M:%SZ > reports/captured-at.txt
+
+      - name: Commit location snapshot
+        run: |
+          git add reports/
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: update runner IP and location snapshot"
+            git push
+          fi
