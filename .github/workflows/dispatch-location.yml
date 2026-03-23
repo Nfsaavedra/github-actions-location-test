@@ -13,13 +13,15 @@ concurrency:
 jobs:
   location:
     runs-on: ubuntu-latest
+    env:
+      RUN_REPORT_DIR: reports/runs/${{ github.run_id }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Initialize workspace
         run: |
-          mkdir -p reports
+          mkdir -p "$RUN_REPORT_DIR"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
@@ -35,16 +37,16 @@ jobs:
         run: |
           IP=$(curl -s https://api.ipify.org)
           echo "IP=$IP"
-          curl -s "https://ipinfo.io/$IP/json" | tee reports/ipinfo.json
-          printf '%s\n' "$IP" > reports/public-ip.txt
-          date -u +%Y-%m-%dT%H:%M:%SZ > reports/captured-at.txt
+          curl -s "https://ipinfo.io/$IP/json" | tee "$RUN_REPORT_DIR/ipinfo.json"
+          printf '%s\n' "$IP" > "$RUN_REPORT_DIR/public-ip.txt"
+          date -u +%Y-%m-%dT%H:%M:%SZ > "$RUN_REPORT_DIR/captured-at.txt"
 
       - name: Commit location snapshot
         run: |
-          git add reports/
+          git add "$RUN_REPORT_DIR"
           if git diff --staged --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "chore: update runner IP and location snapshot"
+            git commit -m "chore: snapshot run ${{ github.run_id }}"
             git push
           fi
