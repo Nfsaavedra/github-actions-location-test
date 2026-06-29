@@ -4,54 +4,50 @@ This repository exists for **academic purposes**: to explore and document **wher
 
 ## Analysis results (`scripts/analyze-report-runs.py`)
 
-Sample output from 100 report runs with readable `ipinfo.json`:
+Sample output from 300 report runs with readable `ipinfo.json`:
 
-Runs with readable ipinfo.json: 100 (of 100 files)
+Runs with readable ipinfo.json: 300 (of 300 files)
 
 ### Azure region (programmatic name)
 
 | Count | Region |
 |------:|--------|
-| 20 | northcentralus |
-| 17 | eastus2 |
-| 12 | westcentralus |
-| 12 | westus3 |
-| 12 | westus |
-| 12 | centralus |
-| 11 | eastus |
-| 3 | (unmapped) |
-| 1 | westus2 |
+| 66 | westus |
+| 55 | northcentralus |
+| 55 | eastus |
+| 52 | eastus2 |
+| 24 | centralus |
+| 23 | westcentralus |
+| 23 | westus3 |
+| 2 | westus2 |
 
 ### Country (ipinfo)
 
 | Count | Country |
 |------:|---------|
-| 97 | US |
-| 3 | (missing) |
+| 300 | US |
 
 ### Region (ipinfo)
 
 | Count | Region |
 |------:|--------|
-| 28 | Virginia |
-| 20 | Illinois |
-| 12 | Wyoming |
-| 12 | Arizona |
-| 12 | California |
-| 12 | Iowa |
-| 3 | (missing) |
-| 1 | Washington |
+| 107 | Virginia |
+| 66 | California |
+| 55 | Illinois |
+| 24 | Iowa |
+| 23 | Wyoming |
+| 23 | Arizona |
+| 2 | Washington |
 
 ### City (ipinfo)
 
 | Count | City |
 |------:|------|
-| 20 | Chicago |
-| 17 | Boydton |
-| 12 | Cheyenne |
-| 12 | Phoenix |
-| 12 | San Jose |
-| 12 | Des Moines |
-| 11 | Washington |
-| 3 | (missing) |
-| 1 | Moses Lake |
+| 66 | San Jose |
+| 55 | Chicago |
+| 55 | Washington |
+| 52 | Boydton |
+| 24 | Des Moines |
+| 23 | Cheyenne |
+| 23 | Phoenix |
+| 2 | Moses Lake |
